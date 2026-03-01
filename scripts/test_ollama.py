@@ -13,8 +13,8 @@ from datetime import datetime
 from pathlib import Path
 
 # configuration
-input_file = "prompts.csv"  # fichier avec liste des prompts
-output_file = "resultats_ollama.csv"  # fichier de sortie avec les resultats
+input_file = "../prompts.csv"  # fichier avec liste des prompts
+output_file = "../resultats/resultats_ollama.csv"  # fichier de sortie avec les resultats
 models = ["llama3.1:8b", "mistral:7b"]  # modeles a tester
 
 generation_options = {  # parametres de generation fixes qui reflète un usage réel

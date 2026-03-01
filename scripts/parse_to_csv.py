@@ -166,7 +166,7 @@ def main():
     print("=" * 70)
     print()
     
-    fichier_input = "tests_online.txt"  # nom du fichier txt converti
+    fichier_input = "../tests_online.txt"  # nom du fichier txt converti
     
     # parser le fichier txt
     print(f"lecture de {fichier_input}...")
@@ -194,14 +194,14 @@ def main():
     
     # ecrire le csv des tests proprietaires
     print("ecriture de resultats_proprietaires.csv...")
-    ecrire_csv(resultats, 'resultats_proprietaires.csv')
+    ecrire_csv(resultats, '../resultats/resultats_proprietaires.csv')
     print("ok")
     print()
     
     # fusionner avec ollama si disponible
     try:
         print("fusion avec resultats_ollama.csv...")
-        fusionner_csvs('resultats_ollama.csv', 'resultats_proprietaires.csv', 'resultats_complets.csv')
+        fusionner_csvs('../resultats/resultats_ollama.csv', '../resultats/resultats_proprietaires.csv', '../resultats/resultats_complets.csv')
         print("ok")
         print()
         print("fichiers crees:")

@@ -277,4 +277,4 @@ def generer_html(fichier_csv, fichier_html):
 
 
 if __name__ == "__main__":
-    generer_html("resultats_complets.csv", "resultats.html")
+    generer_html("../resultats/resultats_complets.csv", "../resultats/resultats.html")
