@@ -44,11 +44,11 @@ def parser_fichier_word(fichier_txt):
         prompt_text = match_prompt.group(1).strip()
         
         # extraire les 3 reponses avec patterns flexibles
-        # GPT-4 (accepte "GPT-4", "GPT 4", "gpt-4", etc.)
+        # gpt-4 (accepte "GPT-4", "GPT 4", "gpt-4", etc.)
         match_gpt = re.search(r'-{2,}\s*REPONSE\s+GPT[-\s]?4\s*-{2,}\s*(.*?)(?=\s*-{2,}\s*REPONSE\s+CLAUDE|\Z)', bloc_contenu, re.DOTALL | re.IGNORECASE)
-        # Claude (accepte "CLAUDE", "claude", etc.)
+        # claude (accepte "CLAUDE", "claude", etc.)
         match_claude = re.search(r'-{2,}\s*REPONSE\s+CLAUDE\s*-{2,}\s*(.*?)(?=\s*-{2,}\s*REPONSE\s+DEEPSEEK|\Z)', bloc_contenu, re.DOTALL | re.IGNORECASE)
-        # DeepSeek (accepte "DEEPSEEK", "deepseek", "DeepSeek", etc.)
+        # deepseek (accepte "DEEPSEEK", "deepseek", "DeepSeek", etc.)
         match_deepseek = re.search(r'-{2,}\s*REPONSE\s+DEEPSEEK\s*-{2,}\s*(.*?)(?=\s*={10,}|\Z)', bloc_contenu, re.DOTALL | re.IGNORECASE)
         
         reponse_gpt = match_gpt.group(1).strip() if match_gpt else ""
@@ -131,33 +131,6 @@ def ecrire_csv(resultats, fichier_csv):
         writer.writerows(resultats)
 
 
-def fusionner_csvs(csv_ollama, csv_proprietaires, csv_final):
-    """fusionne les resultats ollama et proprietaires dans un seul csv"""
-    
-    # lire ollama
-    try:
-        with open(csv_ollama, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            resultats_ollama = list(reader)
-    except FileNotFoundError:
-        print(f"warning: {csv_ollama} introuvable, on continue sans")
-        resultats_ollama = []
-    
-    # lire proprietaires
-    with open(csv_proprietaires, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        resultats_proprietaires = list(reader)
-    
-    # fusionner
-    tous_resultats = resultats_ollama + resultats_proprietaires
-    
-    # trier par prompt_id puis par modele
-    tous_resultats.sort(key=lambda x: (x['prompt_id'], x['modele']))
-    
-    # ecrire
-    ecrire_csv(tous_resultats, csv_final)
-
-
 def main():
     """fonction principale"""
     
@@ -166,7 +139,7 @@ def main():
     print("=" * 70)
     print()
     
-    fichier_input = "../tests_online.txt"  # nom du fichier txt converti
+    fichier_input = "../tests_online.txt"
     
     # parser le fichier txt
     print(f"lecture de {fichier_input}...")
@@ -197,23 +170,11 @@ def main():
     ecrire_csv(resultats, '../resultats/resultats_proprietaires.csv')
     print("ok")
     print()
-    
-    # fusionner avec ollama si disponible
-    try:
-        print("fusion avec resultats_ollama.csv...")
-        fusionner_csvs('../resultats/resultats_ollama.csv', '../resultats/resultats_proprietaires.csv', '../resultats/resultats_complets.csv')
-        print("ok")
-        print()
-        print("fichiers crees:")
-        print("  - resultats_proprietaires.csv (180 lignes - gpt/claude/deepseek)")
-        print("  - resultats_complets.csv (300 lignes - tous les modeles)")
-    except FileNotFoundError:
-        print("resultats_ollama.csv introuvable")
-        print("seul resultats_proprietaires.csv a ete cree")
-    
+    print("fichier cree: resultats_proprietaires.csv (180 lignes)")
     print()
     print("=" * 70)
     print("termine !")
+    print("utilise maintenant fusion.py pour fusionner avec ollama")
     print("=" * 70)
 
 
