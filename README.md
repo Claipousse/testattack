@@ -132,10 +132,10 @@ Le projet vise à :
 
 Projet réalisé dans le cadre d'un hackathon sur la sécurité des modèles de langage.
 
-- Clément CONRIÉ  
-- Thomas SCHAMING  
-- Yanis LIU  
-- Christ DIATHA  
+- Claipousse 
+- Thomas 
+- Yanis
+- Christ
 
 ---
 
